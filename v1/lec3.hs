@@ -83,3 +83,12 @@ multiply x y = x * y
 
 greet :: String -> String
 greet name = "Tjenare " ++ name ++ "!"
+
+-- Overloading
+
+-- Lists --
+xs :: [Int]
+xs = [1, 2, 3, 4, 5]
+
+ys :: [Bool]
+ys = [True, False, True, True]
