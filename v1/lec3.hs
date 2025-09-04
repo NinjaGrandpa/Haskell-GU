@@ -1,6 +1,6 @@
--- Föreläsning 3 : 2025-09-04
+-- Föreläsning 3 : 2025-09-04 --
 
--- Guards equations:
+-- Guards equations: --
 
 -- * Alternative to if-then-else
 
@@ -29,3 +29,24 @@ collatz x
 
 -- Use the command "it" in terminal to use the latest result
 -- Command "takeWhile (/=1) $ iterate collatz 12"
+
+-- Recursion --
+power n k | k < 0 = error "power: negative exponent"
+power n 0 = 1
+power n k = n * power n (k - 1)
+
+-- Base Case stops the recursion aka. x 0 = 1
+-- Factorial
+fac 0 = 1
+fac n = n * fac (n - 1)
+
+-- Pattern Matching
+
+-- Fibonacci numbers
+fib 0 = 0
+fib 1 = 1
+fib n = fib (n - 1) + fib (n - 2)
+
+{--
+fib 3 = fib 2 + fib 1 = (fib 1 + fib 0) + fib
+--}
