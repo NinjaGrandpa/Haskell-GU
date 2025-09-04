@@ -53,3 +53,33 @@ fib 3 = fib 2 + fib 1 = (fib 1 + fib 0) + fib
 
 -- Types --
 -- Strongly typed language
+a :: Int
+a = 42
+
+b :: Bool
+b = True
+
+c :: Char
+c = 'C'
+
+d :: String
+d = "String"
+
+e :: Double
+e = 1.0
+
+f :: Float
+f = 0.5
+
+g :: Integer
+g = 2
+
+-- Function Types:
+plusOne :: Int -> Int
+plusOne x = x + 1
+
+multiply :: Int -> Int -> Int
+multiply x y = x * y
+
+greet :: String -> String
+greet name = "Tjenare " ++ name ++ "!"
