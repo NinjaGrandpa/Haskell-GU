@@ -49,7 +49,6 @@ myProduct [2,3,4]
 = {applying inner *}
 24
 -}
-{-# LANGUAGE BlockArguments #-}
 
 myProduct :: (Num a) => [a] -> a
 myProduct [] = 1
