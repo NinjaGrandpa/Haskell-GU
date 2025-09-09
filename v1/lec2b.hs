@@ -92,3 +92,7 @@ xs = [1, 2, 3, 4, 5]
 
 ys :: [Bool]
 ys = [True, False, True, True]
+
+test = [[1,2],[1,2]]
+
+t = [(1,2)]
