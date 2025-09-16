@@ -31,13 +31,16 @@ b.guarded equations;
 c.pattern matching. -}
 -- ?Answer:
 safetail :: [a] -> [a]
-safetail [] = undefined
+safetail xs = if null xs then xs 
+            else tail xs
 
 safetail' :: [a] -> [a]
-safetail' [] = undefined
+safetail' xs | null xs = xs
+             | otherwise = tail xs
 
 safetail'' :: [a] -> [a]
-safetail'' [] = undefined
+safetail'' [] = []
+safetail'' xs = tail xs
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- *4.In a similar way to && in section 4.4, show how the disjunction operator || can be defined in four different ways using pattern matching.
