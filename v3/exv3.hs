@@ -37,17 +37,14 @@ weekday 6 = Saturday
 weekday 7 = Sunday
 
 -- ? Person data type
-data Person = Person {
-    firstNames :: [String],
-    lastNames :: [String],
-    ages :: [Int]
-} deriving (Show)
+data Person = Person [String] String Int deriving (Show, Eq)
 
-kjellgren, jenslov :: Person
-kjellgren = Person ["Kajsa", "Maja", "Olle", "Lars", "Ulrica"] ["Kjellgren"] [21, 23, 17, 0, 0]
-jenslov = Person ["Max", "Molly", "Mira", "Ulrika", "Niklas"] ["Jenslöv"] [23, 14, 11, 50, 53]
+maxj, molly, mira :: Person
+maxj = Person ["Max", "Vilgot"] "Jenslöv" 23
+molly = Person ["Molly", "Viola"] "Jenslöv" 13
+mira = Person ["Mira", "Marianne"] "Jenslöv" 11
 
-families = [kjellgren, jenslov] :: [Person]
+fam = [maxj, molly, mira] :: [Person]
 
 -- ? Extra parameters
 -- | Calculates maximum and minimum of a non-empty list
@@ -57,9 +54,31 @@ minmax (y:ys) = go (y, y) ys
         go (mn, mx) [] = (mn, mx)
         go (mn, mx) (x:xs) = go ((min mn x), (max mx x)) xs
 
----------------------------------------------------------------------------------------------------------------------------------
--- * Basic
+-- ? Watch your head
+-- | Safe head function
+safehead :: [a] -> Maybe a
+safehead [] = Nothing
+safehead xs = Just (head xs)
 
+-- ? List Comprehensions
+-- | Return a list with elements greater than n and smalller than m
+between :: Int -> Int -> [Int] -> [Int]
+-- between n m xs = filter (\x -> (x > n && x < m)) xs
+between n m xs = [x | x <- xs, (x > n && x < m)]
+
+---------------------------------------------------------------------------------------------------------------------------------
+-- * Basic questions
+
+-- ? More list comprehensions
+-- | Selects persons with a given name
+named :: String -> [Person] -> [Person]
+named name ps = [Person fns ln age | Person fns ln age <- ps, name `elem` fns]
+
+ages :: Int -> [Person] -> [Person]
+ages age ps = []
+
+-- findPeople :: ((Foldable t, Eq a) => a -> t a -> Bool) -> [Person] -> [Person]
+-- findPeople x ps = [Person fns ln age | Person fns ln age <- ps, x] 
 
 ---------------------------------------------------------------------------------------------------------------------------------
 -- * Challenging
