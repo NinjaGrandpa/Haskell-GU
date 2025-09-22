@@ -1,3 +1,4 @@
+module Exv2 where
 import Test.QuickCheck
 
 -- Exercices Week 2 --
@@ -104,3 +105,6 @@ hanoi n = (2^n)-1
 prop_hanoi3 = hanoi 3 == 7
 prop_hanoi5 = hanoi 5 == 31
 prop_hanoi8 = hanoi 8 == 255
+
+
+

@@ -1,3 +1,4 @@
+module Lec2b where
 import Prelude hiding (Just, Maybe, Nothing, length, null)
 
 -- Polymorphic functions
@@ -86,3 +87,6 @@ instance Show Person where
 
 instance Eq Person where
   Person _ _ s1 == Person _ _ s2 = s1 == s2
+
+
+

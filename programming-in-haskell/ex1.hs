@@ -1,3 +1,4 @@
+module Ex1 where
 {- 1.7 Exercises -}
 -- 1.Give another possible calculation for the result of double (double 2).
 {- Answer:
@@ -86,3 +87,7 @@ qsort (x : xs) = qsort smaller ++ equal ++ [x] ++ qsort larger
     equal = [c | c <- xs, c == x]
 
 test = nsort numbers == qsort numbers
+
+
+
+

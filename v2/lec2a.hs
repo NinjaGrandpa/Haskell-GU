@@ -1,3 +1,4 @@
+module Lec2a where
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
 {-# HLINT ignore "Use foldr" #-}
@@ -27,3 +28,6 @@ last (x : xs) = last xs
 reverse :: [Int] -> [Int]
 reverse [] = []
 reverse (x : xs) = reverse xs ++ [x]
+
+
+

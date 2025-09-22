@@ -1,3 +1,4 @@
+module Lec3b where
 -- ! Lecture 3B: IO instructions and test data generation --
 
 {- 
@@ -242,3 +243,6 @@ genNonNegative :: Gen Integer
 genNonNegative = do
     n <- arbitrary
     return (abs n)
+
+
+

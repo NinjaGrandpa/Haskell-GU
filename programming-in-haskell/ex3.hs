@@ -1,3 +1,4 @@
+module Ex3 where
 -- 3.11Exercises --
 ----------------------------------------------------------------------------------------------------------------------------------
 -- 1.What are the types of the following values?
@@ -80,3 +81,7 @@ It's not feasible in general to compare two functions for equality.
 If the return value of the 
  -}
 ----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+

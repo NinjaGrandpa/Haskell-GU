@@ -1,3 +1,4 @@
+module Lec2b where
 -- Föreläsning 3 : 2025-09-04 --
 
 -- Guards equations: --
@@ -96,3 +97,6 @@ ys = [True, False, True, True]
 test = [[1,2],[1,2]]
 
 t = [(1,2)]
+
+
+

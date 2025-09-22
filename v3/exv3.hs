@@ -1,3 +1,4 @@
+module Exv3 where
 -- ! Exercices week 3: data types and list functions --
 
 import Data.List
@@ -82,4 +83,8 @@ ages age ps = []
 
 ---------------------------------------------------------------------------------------------------------------------------------
 -- * Challenging
+
+
+
+
 

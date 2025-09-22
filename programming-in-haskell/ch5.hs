@@ -1,3 +1,4 @@
+module Ch5 where
 -- 5. List Comprehension --
 -- 5.2 Guards:
 find :: (Eq a) => a -> [(a, b)] -> [b]
@@ -20,3 +21,7 @@ pairs xs = zip xs (tail xs)
 > zip [’a’,’b’,’c’] [1,2,3,4]
 
 [(’a’,1),(’b’,2),(’c’,3)] -}
+
+
+
+

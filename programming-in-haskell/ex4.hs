@@ -1,4 +1,7 @@
--- 4.8 Excercices --
+module Ex4 where
+import Test.QuickCheck
+
+-- ! 4.8 Excercices --
 
 {-- *1.Using library functions, define a function halve :: [a] -> ([a],[a]) that splits an even-lengthed list into two halves. 
 For example:
@@ -6,7 +9,7 @@ For example:
 > halve [1,2,3,4,5,6]
 ([1,2,3],[4,5,6]) -}
 
--- ?Answer:
+-- ? Answer:
 halve :: [a] -> ([a], [a])
 halve xs = (take n xs, drop n xs)
     where n = length xs `div` 2
@@ -18,9 +21,20 @@ a.head and tail;
 b.list indexing !!;
 c.pattern matching. -}
 
--- ?Answer:
-third :: [a] -> a
-third xs = xs !! 2
+-- ? Answer:
+thirda, thirdb, thirdc :: [a] -> a
+
+thirda xs = head (tail (tail xs))
+thirdb xs = xs !! 2
+thirdc (_:_:x:_) = x
+thirdc xs = undefined
+
+prop_third :: Eq a => [a] -> Bool
+prop_third xs = allEqual (map ($ xs) [thirda, thirdb, thirdc])
+
+allEqual :: Eq a => [a] -> Bool
+allEqual [] = True
+allEqual (x:xs) = all (== x) xs
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 {-- * 3.Consider a function safetail :: [a] -> [a] that behaves in the same way as tail except that it maps the empty list to itself rather than producing an error.
@@ -29,7 +43,7 @@ third xs = xs !! 2
 a.a conditional expression;
 b.guarded equations;
 c.pattern matching. -}
--- ?Answer:
+-- ? Answer:
 safetail :: [a] -> [a]
 safetail xs = if null xs then xs 
             else tail xs
@@ -44,15 +58,26 @@ safetail'' xs = tail xs
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- *4.In a similar way to && in section 4.4, show how the disjunction operator || can be defined in four different ways using pattern matching.
--- ?Answer:
+-- ? Answer:
+(||) :: Bool -> Bool -> Bool
+True || True = True
+True || False = True
+False || True = True
+False || False = False
 
 
+-- True b _ = True
+-- _ b True = True
+-- _ b _ = False
+
+prop_disjunction :: Bool -> Bool -> Bool
+prop_disjunction = undefined
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 {-- *5.Without using any other library functions or operators, 
-show how the meaning of the following pattern matching definition for logical conjunction && can be formalised using conditional expressions:
+--  *show how the meaning of the following pattern matching definition for logical conjunction && can be formalised using conditional expressions:
 
 Hint: use two nested conditional expressions. -}
--- ?Answer:
+-- ? Answer:
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -65,7 +90,7 @@ False && _ = False -}
 
 mult :: Int -> Int -> Int -> Int
 mult x y z = x   y   z -}
--- ?Answer:
+-- ? Answer:
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -96,4 +121,8 @@ True
 > luhn 4 7 8 3
 False -}
 
--- ?Answer:
+-- ? Answer:
+
+
+
+

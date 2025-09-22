@@ -1,3 +1,4 @@
+module Ex2 where
 {- 2.7Exercises -}
 -- 1.Work through the examples from this chapter using GHCi.
 {- 2.Parenthesise the following numeric expressions:
@@ -47,3 +48,6 @@ Show how init could similarly be defined in two different ways.-}
 initA x = take (length x - 1) x
 
 initB x = reverse (tail (reverse x))
+
+
+

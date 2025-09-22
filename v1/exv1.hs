@@ -1,3 +1,4 @@
+module Exv1 where
 import Data.Void (vacuous)
 
 -- Exercices - Week 1
@@ -71,7 +72,7 @@ priceB v
 {--
 Answer:
     33.25
-    *** Exception: v1\exv1.hs:(66,1)-(68,22): Non-exhaustive patterns in function priceB
+    *** Exception: v1\Exv1.hs:(66,1)-(68,22): Non-exhaustive patterns in function priceB
     39.5
 --}
 
@@ -147,3 +148,7 @@ daysInYear y
   | y `mod` 4 == 0 && y `mod` 100 == 0 = 365
   | y `mod` 4 == 0 = 366
   | otherwise = 365
+
+
+
+

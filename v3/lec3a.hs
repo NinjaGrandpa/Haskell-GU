@@ -1,3 +1,4 @@
+module Lec3a where
 -- ! Lecture 3A --
 
 -- ? Operators and sections
@@ -249,3 +250,7 @@ plusOne 41
 
 triple :: [Int] -> [Int]
 triple xs = let f = (3 *) in [f x | x <- xs]
+
+
+
+

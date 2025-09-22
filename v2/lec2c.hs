@@ -1,3 +1,4 @@
+module Lec2c where
 import Prelude hiding (take, drop, zip, maximum, reverse)
 
 {- Lecture 2C: more list functions
@@ -140,3 +141,6 @@ sorted xs = and [x <= y | (x,y) <- zip xs (tail xs)]
 
 prop_sorted :: [Int] -> Property
 prop_sorted 
+
+
+

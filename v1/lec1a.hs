@@ -1,3 +1,4 @@
+module Lec1a where
 -- :t command show the type of any expression
 -- The "::"-symbol indicates a type signature, "is of type"
 
@@ -77,3 +78,6 @@ yesNo n
   | not n = "No"
 
 -- Pattern Matching
+
+
+
