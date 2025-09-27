@@ -1,4 +1,4 @@
-module Lec3b where
+module V3.Lec3b where
 -- ! Lecture 3B: IO instructions and test data generation --
 
 {- 

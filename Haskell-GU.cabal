@@ -26,7 +26,7 @@ library
         Ex4
         Exv1
         Lec1a
-        Lec2b
+        Lec1b
         Stud1
         Exv2
         Lec2a
@@ -36,6 +36,7 @@ library
         Lec3a
         Lec3b
         Lec3c
+        Lec4a
  
     -- other-modules:
     -- other-extensions:
@@ -47,6 +48,7 @@ library
         v1
         v2
         v3
+        v4
     default-language: Haskell2010
 
 
