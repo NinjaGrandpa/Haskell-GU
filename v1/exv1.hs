@@ -1,5 +1,4 @@
 module Exv1 where
-import Data.Void (vacuous)
 
 -- Exercices - Week 1
 -- ghci> 4*(8-5)+3
