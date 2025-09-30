@@ -166,7 +166,24 @@ park    = Action "Go to the park! And write some Haskell code!" Done
 work    = Action "Write some Haskell code!" Done
 
 -- * "play" a diagram
--- play :: Diagram -> IO ()
+play :: Diagram -> IO ()
+play d = case d of
+    Question question yes no -> do
+        putStrLn question
+        putStr "[y/n] >"
+        answer <- getLine
+        case answer of
+            "y" -> play yes
+            "n" -> play no
+            _   -> do 
+                putStrLn "Try again!"
+                play d
+        
+    Action action cont -> do
+        putStrLn action
+        play cont
+    
+    Done -> return ()
 
 -- Pictionary flowchart
 -- pictionary :: Diagram
