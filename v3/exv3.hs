@@ -221,8 +221,9 @@ validDate (Date year month day) = day > 0 && day <= daysInMonth month year
 tomorrow :: Date -> Date
 tomorrow date@(Date y m d) 
     | not (validDate date) = error "Date is not valid"
-    | d == daysInMonth m y && m == December = (Date (y+1) January 1)
-    | d == daysInMonth m y = date {day = 1, month = (succ m)}
+    | d == daysInMonth m y = 
+        if m == December then (Date (y+1) January 1)
+        else date { day = 1, month = (succ m) }
     | otherwise = date { day = d + 1 }
 
 -- ? Pascal's Triangle
