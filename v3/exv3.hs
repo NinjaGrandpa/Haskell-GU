@@ -1,7 +1,10 @@
+{-# LANGUAGE TemplateHaskell #-}
 module Exv3 where
 -- ! Exercices week 3: data types and list functions --
 
-import Data.List
+import Prelude hiding (take, unzip)
+import Test.QuickCheck
+import Test.QuickCheck.All
 
 ---------------------------------------------------------------------------------------------------------------------------------
 -- * Self check
@@ -38,7 +41,12 @@ weekday 6 = Saturday
 weekday 7 = Sunday
 
 -- ? Person data type
-data Person = Person [String] String Int deriving (Show, Eq)
+-- data Person = Person [String] String Int deriving (Show, Eq)
+data Person = Person
+ { firstnames :: [String]
+ , lastname :: String
+ , age :: Int
+ } deriving (Show, Eq)
 
 maxj, molly, mira :: Person
 maxj = Person ["Max", "Vilgot"] "Jenslöv" 23
@@ -73,18 +81,185 @@ between n m xs = [x | x <- xs, (x > n && x < m)]
 -- ? More list comprehensions
 -- | Selects persons with a given name
 named :: String -> [Person] -> [Person]
-named name ps = [Person fns ln age | Person fns ln age <- ps, name `elem` fns]
+named name ps = [p | p@(Person fns _ _) <- ps, name `elem` fns]
 
+-- | Selects persons using age
 ages :: Int -> [Person] -> [Person]
-ages age ps = []
+ages a ps = [p | p@(Person _ _ age) <- ps, age == a]
 
--- findPeople :: ((Foldable t, Eq a) => a -> t a -> Bool) -> [Person] -> [Person]
--- findPeople x ps = [Person fns ln age | Person fns ln age <- ps, x] 
+-- | Creates a list of pairs 
+pairs :: [a] -> [b] -> [(a,b)]
+pairs xs ys = [(x, y) | x <- xs, y <- ys]
+
+-- ? Pythagorean triad
+-- A Pythagorean triad is a triple of integers (a,b,c) such that a^2 + b^2 = c^2. 
+-- Find all Pythagorean triads with a <= b <= c <= 100
+-- Ex:
+{- 
+(3,4,5) 
+= 3^2 + 4^2 = 5^2
+= 9 + 16 = 25
+= 25 = 25
+ -}
+
+-- | Pythagorean triad
+pythTri :: [(Int, Int, Int)]
+pythTri = [(a, b, c) | a <- [1..100], b <- [1..100], c <- [1..100], a^2 + b^2 == c^2]
+
+prop_pythTri = and $ map (\(a, b, c) -> c^2 == (a^2 + b^2)) pythTri
+
+-- ? Defining functions over lists
+
+-- | take
+take :: Int -> [a] -> [a]
+take n _ | n <= 0 = []
+take _ []         = []
+take n (x:xs)     = x : take (n-1) xs
+
+
+-- | Split a list into two at a given index
+splitAt' :: Int -> [a] -> ([a], [a])
+splitAt' n xs | n <= 0 = ([], xs)
+splitAt' _ []          = ([], [])
+splitAt' n (x:xs)      = 
+    let (ys, zs) = splitAt' (n-1) xs
+    in (x : ys, zs)
+
+prop_splitAt :: Eq a => Int -> [a] -> Bool
+prop_splitAt n xs = splitAt n xs == splitAt' n xs
+
+-- ? Permutations
+
+-- [1,2,1] is permutation of [2,1,1] but not of [1,2,2]
+
+-- compare first element in list
+-- if equal
+-- remove
+-- else keep going
+
+-- recursion
+
+-- | Check if a list is a permutation of another list
+isPermutation :: Eq a => [a] -> [a] -> Bool
+isPermutation [] [] = True
+isPermutation [] _ = False 
+isPermutation _ [] = False 
+isPermutation (x:xs) ys = isPermutation xs $ removeOnce x ys
+
+-- | Removes an element from a list once
+removeOnce :: Eq a => a -> [a] -> [a]
+removeOnce _ [] = []
+removeOnce e (x:xs) | e == x = xs
+                    | otherwise = x:removeOnce e xs 
+
+-- ? Unzipping and writing properties
+
+-- | Takes a list of and returns a pair of lists
+unzip :: [(a, b)] -> ([a], [b])
+unzip xs = ([fst a | a <- xs], [snd b | b <- xs])
+
+prop_unzip_testA = unzip [(1, 'a'), (2, 'b'), (3, 'c')] == ([1,2,3], "abc")
+
+prop_unzip_same :: (Eq a, Eq b) => [(a, b)] -> Bool
+prop_unzip_same xs = let (a, b) = unzip xs in xs == zip a b
+
+prop_unzip_length :: (Eq a, Eq b) => [(a, b)] -> Bool
+prop_unzip_length xs = let (a, b) = unzip xs in length xs == length a && length xs == length b
+
+-- ? Modeling students
+data Student = Student String String Bool
+
+instance Show Student where
+    show (Student n p csn) = n ++ " studies " ++ p ++ " and does" ++ 
+                             (if csn then "" else " not") ++ " have CSN."
+
+instance Eq Student where
+    Student n1 _ _ == Student n2 _ _ = n1 == n2
+
+prop_student_show, prop_student_eq :: Bool
+prop_student_show = "Alex studies Datavetenskap and does not have CSN." == show (Student "Alex" "Datavetenskap" False)
+prop_student_eq = (Student "Alex" "Datavetenskap" False) == (Student "Alex" "Någotannat" True)
 
 ---------------------------------------------------------------------------------------------------------------------------------
--- * Challenging
+-- * Advanced Questions
+
+-- ? Defining Types
+
+data Month = January 
+           | February 
+           | March 
+           | April 
+           | May 
+           | June 
+           | July 
+           | August 
+           | September 
+           | October 
+           | November 
+           | December
+           deriving (Eq, Show, Ord, Bounded, Enum)
 
 
+-- | Calculates if the current year is a leap year or not
+isLeapYear :: Integer -> Bool
+isLeapYear y
+  | (y `mod` 4 == 0 && y `mod` 100 /= 0) || (y `mod` 400 == 0) = True
+  | otherwise = False
+
+-- | Computes the number of days in a month, given the year
+daysInMonth :: Month -> Integer -> Integer
+daysInMonth m y 
+    | m == February = if isLeapYear y then 29 else 28
+    | isEven && isAfterAug || not isEven && not isAfterAug = 31
+    | otherwise = 30
+  where
+    isAfterAug = (fromEnum m + 1) >= 8
+    isEven = (fromEnum m + 1) `mod` 2 == 0
+
+data Date = Date 
+    { year :: Integer 
+    , month :: Month 
+    , day :: Integer
+    } deriving (Eq)
+
+instance Show Date where 
+    show (Date year month day) = (ordinal day) ++ " of " ++ show month ++ " " ++ show year
+
+ordinal :: Integer -> String
+ordinal d = case d of
+    1 -> "1st"
+    2 -> "2nd"
+    3 -> "3rd"
+    _ -> show d ++ "th"
+
+-- | Checks if date is between 1 and number of days in month
+validDate :: Date -> Bool
+validDate (Date year month day) = day > 0 && day <= daysInMonth month year
 
 
+-- if date is valid >
+-- if date is december 31 should increase to new year
+-- if days == daysInMoth then should go to next month
+-- else add 
 
+-- | Returns tomorrow's date for a given date
+tomorrow :: Date -> Date
+tomorrow date@(Date y m d) 
+    | not (validDate date) = error "Date is not valid"
+    | d == daysInMonth m y && m == December = (Date (y+1) January 1)
+    | d == daysInMonth m y = date {day = 1, month = (succ m)}
+    | otherwise = date { day = d + 1 }
+
+-- ? Pascal's Triangle
+
+-- ? Erastosthenes' sieve
+
+-- ? Occurrences in Lists
+
+-- ? Number Games
+
+-- ? Sorting
+
+return []
+runTests :: IO Bool
+runTests = $quickCheckAll
