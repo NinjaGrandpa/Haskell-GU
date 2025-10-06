@@ -92,15 +92,6 @@ pairs :: [a] -> [b] -> [(a,b)]
 pairs xs ys = [(x, y) | x <- xs, y <- ys]
 
 -- ? Pythagorean triad
--- A Pythagorean triad is a triple of integers (a,b,c) such that a^2 + b^2 = c^2. 
--- Find all Pythagorean triads with a <= b <= c <= 100
--- Ex:
-{- 
-(3,4,5) 
-= 3^2 + 4^2 = 5^2
-= 9 + 16 = 25
-= 25 = 25
- -}
 
 -- | Pythagorean triad
 pythTri :: [(Int, Int, Int)]
@@ -116,7 +107,6 @@ take n _ | n <= 0 = []
 take _ []         = []
 take n (x:xs)     = x : take (n-1) xs
 
-
 -- | Split a list into two at a given index
 splitAt' :: Int -> [a] -> ([a], [a])
 splitAt' n xs | n <= 0 = ([], xs)
@@ -129,15 +119,6 @@ prop_splitAt :: Eq a => Int -> [a] -> Bool
 prop_splitAt n xs = splitAt n xs == splitAt' n xs
 
 -- ? Permutations
-
--- [1,2,1] is permutation of [2,1,1] but not of [1,2,2]
-
--- compare first element in list
--- if equal
--- remove
--- else keep going
-
--- recursion
 
 -- | Check if a list is a permutation of another list
 isPermutation :: Eq a => [a] -> [a] -> Bool
@@ -235,12 +216,6 @@ ordinal d = case d of
 -- | Checks if date is between 1 and number of days in month
 validDate :: Date -> Bool
 validDate (Date year month day) = day > 0 && day <= daysInMonth month year
-
-
--- if date is valid >
--- if date is december 31 should increase to new year
--- if days == daysInMoth then should go to next month
--- else add 
 
 -- | Returns tomorrow's date for a given date
 tomorrow :: Date -> Date
