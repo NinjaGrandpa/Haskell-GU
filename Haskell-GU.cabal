@@ -19,7 +19,6 @@ library
     import:           warnings
     exposed-modules:
         Ch5
-        Doj
         Ex1
         Ex2
         Ex3
@@ -41,6 +40,8 @@ library
         Lec5a
         Lec5b
         Exv5
+        Lec6a
+        Lec6b
         Exv6
  
     -- other-modules:
