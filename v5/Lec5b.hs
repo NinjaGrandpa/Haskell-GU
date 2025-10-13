@@ -9,7 +9,7 @@ Stability   : experimental
 Catching-our-breath lecture.
 -}
 
-module Main where
+module Lec5b where
 
 import Test.QuickCheck
 

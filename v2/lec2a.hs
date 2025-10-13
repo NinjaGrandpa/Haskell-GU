@@ -1,9 +1,5 @@
 module Lec2a where
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
-{-# HLINT ignore "Use foldr" #-}
-
-import System.Win32 (xBUTTON1)
 import Prelude hiding (last, length, reverse, sum)
 
 -- Recursive functions on lists

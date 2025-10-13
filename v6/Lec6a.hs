@@ -13,7 +13,7 @@ How to model and work with simple expression languages.
   * Generating, taking care of size
 -}
 
-module V6.Lec6a where 
+module Lec6a where 
 
 import Data.List (intercalate, union)
 import Data.Maybe 

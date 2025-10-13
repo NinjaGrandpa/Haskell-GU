@@ -1,4 +1,4 @@
-module V4.Exv4 where
+module Exv4 where
 
 import Test.QuickCheck
 import Data.Maybe (isNothing, isJust)

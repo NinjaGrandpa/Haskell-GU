@@ -51,7 +51,7 @@
 module Lec4a where
 import Prelude hiding (map, filter)
 import Data.List (partition)
-import V3.Lec3b
+import Lec3b
 
 
 -- | twice is higher-order because it takes a function as its first argument

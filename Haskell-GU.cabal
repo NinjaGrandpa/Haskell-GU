@@ -41,7 +41,6 @@ library
         Lec5b
         Exv5
         Lec6a
-        Lec6b
         Exv6
  
     -- other-modules:
@@ -56,6 +55,8 @@ library
         v2
         v3
         v4
+        v5
+        v6
     default-language: Haskell2010
 
 
