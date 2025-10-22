@@ -75,11 +75,13 @@ module Table
 module Lec7a where
 
 import Prelude hiding (lookup)
-import TableList
+-- import TableList
 import TableTree
 
 type Name   = String
 type Number = Int
+
+
 
 phoneBook :: Table Name Number
 phoneBook = insert "max" 1234567
@@ -88,8 +90,8 @@ phoneBook = insert "max" 1234567
           $ insert "mira" 867567432
           $ empty
 
-f :: Name -> Table Name Number -> Table Name Number
-f n (Table kvs) = undefined
+-- f :: Name -> Table Name Number -> Table Name Number
+-- f n (Table kvs) = undefined
 
 main :: IO ()
 main = do
@@ -97,5 +99,5 @@ main = do
     putStr "Who are you looking for?\n> "
     name <- getLine
     putStrLn $ case lookup name phoneBook of
-        Just number -> name ++ " has number " ++ show numbers
+        Just number -> name ++ " has number " ++ show number
         _           -> name ++ " is not in the phonebook"
