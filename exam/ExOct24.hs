@@ -3,6 +3,8 @@
 module ExOct24 where
 
 import Test.QuickCheck hiding (Some)
+import Data.Maybe
+
 -- * Part 1
 
 -- ** 1.
@@ -87,9 +89,98 @@ type Number = Int
 data PhoneBook = Empty | Insert Name Number PhoneBook deriving Show
 
 phoneBook :: PhoneBook
-phoneBook = Insert "Max" 43495 (Insert "Alex" 6154 Empty)
+phoneBook = Insert "Max" 43495 
+          (Insert "Alex" 6154 
+          (Insert "Kajsa" 5678 Empty))
+
+
 
 filterBook :: (Name -> Bool) -> PhoneBook -> PhoneBook
-filterBook pred phbk = undefined
-filterBook pred phbk = undefined
-filterBook pred phbk = undefined
+filterBook pred pb = case pb of
+    Empty -> Empty
+    Insert n nmb npb
+        | pred n    -> Insert n nmb $ filterBook pred npb
+        | otherwise -> filterBook pred npb
+
+-- * Part 2.
+-- ** 8.
+
+data Expr
+    = Val Value
+    | Add Expr Expr
+    | Mul Expr Expr
+    | And Expr Expr
+    | Or Expr Expr
+    | If Expr Expr Expr
+    deriving (Show, Eq)
+
+data Value = Num Int | Bool Bool deriving (Show, Eq)
+
+int :: Int -> Expr
+int n = Val (Num n)
+
+true, false :: Expr
+true = Val (Bool True)
+false = Val (Bool False)
+
+num :: (Int -> Int -> Int) -> Expr -> Expr -> Value
+num op l r = case (eval l, eval r) of
+    (Num x, Num y) -> Num (x `op` y)
+    _              -> error "Type error: expected two integer values"
+
+bool :: (Bool -> Bool -> Bool) -> Expr -> Expr -> Value
+bool op l r = case (eval l, eval r) of
+    (Bool a, Bool b) -> Bool (a `op` b)
+    _                -> error "Type error: expected two integer values" 
+
+eval :: Expr -> Value
+eval expr = case expr of
+    Val v    -> v
+    Add x y  -> num (+) x y
+    Mul x y  -> num (*) x y
+    And a b  -> bool (&&) a b 
+    Or a b   -> bool (||) a b   
+    If c t e -> case eval c of
+        Bool b -> eval (if b then t else e)
+        _      -> error "Type error: the condition must be a boolean"
+
+prop_eval :: Bool
+prop_eval = 
+    eval (If true (Add (int 1) (int 2)) (int 42)) 
+        == Num 3
+    && eval (If (And true false) (Add (int 1) (int 2)) (int 42)) 
+        == Num 42
+    && eval (Or true false)
+        == Bool True
+
+-- ** 9.
+
+data Tree a = Leaf a | Node (Tree a) a (Tree a) deriving Show
+type List a = [(Tree a, Int)]
+
+-- | Creates an empty list 
+empty :: List a
+empty = []
+
+-- | Adds an element to a list
+add :: a -> List a -> List a
+x `add` ((l, n) : (r, m) : ts) | n == m = (Node l x r, 2 * n + 1) : ts
+x `add` ts                              = (Leaf x, 1) : ts
+
+-- *** a)
+-- | Counts the number of elements in a List
+size :: List a -> Int
+size [] = 0
+size ((_, n):ts) = n + size ts
+
+-- *** b)
+-- | Converts a list into a type List
+fromList :: [a] -> List a
+fromList = foldr add empty
+
+-- *** c)
+-- | Returns head of a List
+hd :: List a -> a
+hd ((t, n):ts) = case t of
+    Leaf x -> x
+    Node l x r -> x 
