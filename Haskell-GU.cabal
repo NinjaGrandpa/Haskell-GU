@@ -18,11 +18,13 @@ common warnings
 library
     import:           warnings
     exposed-modules:
-        Ch5
+        Ch9
         Ex1
         Ex2
         Ex3
         Ex4
+        Ex5
+        Ex6
         Exv1
         Lec1a
         Stud1
@@ -41,12 +43,13 @@ library
         Lec5b
         Exv5
         Lec6a
-        Lec6b
         Exv6
+        Lec7a
  
     -- other-modules:
     -- other-extensions:
     build-depends:    
+        directory ^>=1.3.8.5,
         QuickCheck ^>=2.16.0.0,
         base ^>=4.18.3.0,       
 
@@ -56,6 +59,11 @@ library
         v2
         v3
         v4
+        v5
+        v6
+        v7
+        Lec7a
+        exam
     default-language: Haskell2010
 
 

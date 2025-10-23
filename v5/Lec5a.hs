@@ -1,6 +1,6 @@
 -- ! Lecture 5A: recursive data types ----
 
-module V5.Lec5a where
+module Lec5a where
 
 import Prelude hiding (sum)
 import Test.QuickCheck

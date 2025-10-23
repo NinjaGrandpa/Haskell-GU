@@ -88,7 +88,7 @@ disC a b = a || b
 -- | Guarded equation
 disD a b = a || b
   where 
-    a || b | b == c = b
+    a || b | a == b = a
            | otherwise = True
 
 prop_dis :: Bool -> Bool -> Bool

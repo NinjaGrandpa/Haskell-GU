@@ -1,5 +1,7 @@
 module Lec2c where
 import Prelude hiding (take, drop, zip, maximum, reverse)
+import Test.QuickCheck
+import Data.List((\\))
 
 {- Lecture 2C: more list functions
     and accumulating parameters -}
@@ -140,7 +142,7 @@ sorted :: Ord a => [a] -> Bool
 sorted xs = and [x <= y | (x,y) <- zip xs (tail xs)]
 
 prop_sorted :: [Int] -> Property
-prop_sorted 
+prop_sorted = undefined
 
 
 

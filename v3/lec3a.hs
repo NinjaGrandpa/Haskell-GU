@@ -72,7 +72,7 @@ infixr 4 >< -- Should bind stronger than && and ||
 (x, y) |> ys = x : y : ys
 
 infixr 5 |>
-ghci> (1,2) |> [5,6]
+-- ghci> (1,2) |> [5,6]
 
 {- 
 ghci> (1,2) |> (3,4) |> [5,6]

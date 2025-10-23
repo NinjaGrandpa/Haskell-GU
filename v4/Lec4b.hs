@@ -11,7 +11,7 @@
     * The application operator (%) 
  -}
 
-module V4.Lec4b where
+module Lec4b where
 
 import Prelude hiding (foldr, sum, product, concat, and, ord, maximum, zip, zipWith)
 
@@ -187,7 +187,7 @@ zipWith _ _ _           = []
 
 rev' :: [a] -> [a]
 -- rev' foldl (\acc x -> x:acc) []
-rev' foldl (flip (:)) []
+rev' =  foldl (flip (:)) []
 
 -- * Using function in a data type declaration
 
