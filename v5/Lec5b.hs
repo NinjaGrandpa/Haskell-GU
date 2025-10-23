@@ -94,7 +94,9 @@ passedCourses = map fst . filter p . courses
     p (c, g) = g /= U
 
 -- Check if a student is allowed to read a given course. Use list comprehension.
--- canRead :: Student -> Course -> Bool 
+canRead :: Student -> Course -> Bool 
+canRead student course = 
+    [c `elem` passedCourses student | c <- prereqs course]
 
 -- The most important function of all! How much CSN does a student get?!?
 -- Use guards.
